@@ -57,6 +57,5 @@ if __name__ == '__main__':
       </app:control>
     </entry>
     """
-    print(data)
 
     posthatena(data)
