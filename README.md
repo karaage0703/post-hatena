@@ -2,6 +2,16 @@
 python script for posting hatena blog
 
 # How to use
+## Clone this repository
+~~~~
+$ git clone https://github.com/karaage0703/post-hatena.git
+~~~~
+
+maybe you need <code>requests</code> library. Execute below command
+
+~~~~
+$ sudo pip install requests
+~~~~
 
 ## Preparation
  Customize below part of `post-hatena.py` according to your hatena blog setting
