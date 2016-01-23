@@ -2,7 +2,7 @@
 python script for posting hatena blog
 
 # How to use
-## Clone this repository
+## Preparation
 ~~~~
 $ git clone https://github.com/karaage0703/post-hatena.git
 ~~~~
