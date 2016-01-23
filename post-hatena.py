@@ -4,7 +4,14 @@ import random
 import hashlib
 import base64
 import requests
+import sys
 
+username = 'username'
+password = 'API key'
+blogname = 'yourblogname.hatenablog.com'
+category = 'from post-hatena'
+draft = 'yes' # yes or no
+ 
 def wsse(username, password):
     created = datetime.datetime.now().isoformat() + 'Z'
     nonce = hashlib.sha1(str(random.random())).digest()
@@ -13,27 +20,43 @@ def wsse(username, password):
     return 'UsernameToken Username="{}", PasswordDigest="{}", Nonce="{}", Created="{}"'.format(username, base64.b64encode(digest), base64.b64encode(nonce), created)
 
 
-username = 'username'
-password = 'api'
-blogname = 'blogname.hatenablog.com'
-headers = {'X-WSSE': wsse(username, password)}
+def posthatena(data):
+    headers = {'X-WSSE': wsse(username, password)}
 
-url = 'http://blog.hatena.ne.jp/{}/{}/atom/entry'.format(username, blogname)
+    url = 'http://blog.hatena.ne.jp/{}/{}/atom/entry'.format(username, blogname)
 
-data = """<?xml version="1.0" encoding="utf-8"?>
-<entry xmlns="http://www.w3.org/2005/Atom"
-       xmlns:app="http://www.w3.org/2007/app">
-  <title>title</title>
-  <author><name>name</name></author>
-  <content type="text/plain">
-    content
-  </content>
-  <updated>2013-09-05T00:00:00</updated>
-  <app:control>
-    <app:draft>yes</app:draft>
-  </app:control>
-</entry>
-"""
+    r = requests.post(url, data=data, headers=headers)
+    print (r)
 
-r = requests.post(url, data=data, headers=headers)
-print (r)
+if __name__ == '__main__':
+
+    param = sys.argv
+    if (len(param) != 3):
+        print ("Usage: $ python " + param[0] + " title.txt body.txt")
+        quit()  
+
+    f = open(param[1])
+    title = f.read()
+    f.close()
+
+    f = open(param[2])
+    body = f.read()
+    f.close()
+
+    data = """<?xml version="1.0" encoding="utf-8"?>
+    <entry xmlns="http://www.w3.org/2005/Atom"
+           xmlns:app="http://www.w3.org/2007/app">
+      <title>""" + title + """</title>
+      <author><name>name</name></author>
+      <content type="text/plain">
+        """ + body + """
+      </content>
+      <category term=" """ + category + """ " />
+      <app:control>
+        <app:draft>""" + draft + """</app:draft>
+      </app:control>
+    </entry>
+    """
+    print(data)
+
+    posthatena(data)
