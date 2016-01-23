@@ -13,7 +13,7 @@ maybe you need <code>requests</code> library. Execute below command
 $ sudo pip install requests
 ~~~~
 
-## Preparation
+## Setting
  Customize below part of `post-hatena.py` according to your hatena blog setting
 
 ~~~~
