@@ -26,5 +26,5 @@ draft = yes # yes or no
  Execute below command to post hatena blog. `title.txt` is text file written title and `body.txt` is text file written content.
 
 ~~~~
-$ post-hatena.py title.txt body.txt
+$ python post-hatena.py title.txt body.txt
 ~~~~
