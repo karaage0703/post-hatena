@@ -26,7 +26,7 @@ def posthatena(data):
     url = 'http://blog.hatena.ne.jp/{}/{}/atom/entry'.format(username, blogname)
 
     r = requests.post(url, data=data, headers=headers)
-    print (r)
+    print (r.text)
 
 if __name__ == '__main__':
 
