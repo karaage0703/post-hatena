@@ -11,7 +11,7 @@ password = 'API key'
 blogname = 'yourblogname.hatenablog.com'
 category = 'from post-hatena'
 draft = 'yes' # yes or no
- 
+
 def wsse(username, password):
     created = datetime.datetime.now().isoformat() + 'Z'
     nonce = hashlib.sha1(str(random.random())).digest()
@@ -35,13 +35,11 @@ if __name__ == '__main__':
         print ("Usage: $ python " + param[0] + " title.txt body.txt")
         quit()  
 
-    f = open(param[1])
-    title = f.read()
-    f.close()
+    with open(param[1]) as f1:
+            title = f1.read()
 
-    f = open(param[2])
-    body = f.read()
-    f.close()
+    with open(param[2]) as f2:
+        body = f2.read()
 
     data = """<?xml version="1.0" encoding="utf-8"?>
     <entry xmlns="http://www.w3.org/2005/Atom"
