@@ -14,10 +14,9 @@ draft = 'yes' # yes or no
 
 def wsse(username, password):
     created = datetime.datetime.now().isoformat() + 'Z'
-    nonce = hashlib.sha1(str(random.random())).digest()
-    digest = hashlib.sha1(nonce + created + password).digest()
-    
-    return 'UsernameToken Username="{}", PasswordDigest="{}", Nonce="{}", Created="{}"'.format(username, base64.b64encode(digest), base64.b64encode(nonce), created)
+    nonce = hashlib.sha1(str(random.random()).encode()).digest()
+    digest = hashlib.sha1(nonce + created.encode() + password.encode()).digest()
+    return 'UsernameToken Username="{}", PasswordDigest="{}", Nonce="{}", Created="{}"'.format(username, base64.b64encode(digest), base64.b64encode(nonce).decode(), created)
 
 
 def posthatena(data):
@@ -33,7 +32,7 @@ if __name__ == '__main__':
     param = sys.argv
     if (len(param) != 3):
         print ("Usage: $ python " + param[0] + " title.txt body.txt")
-        quit()  
+        quit()
 
     with open(param[1]) as f1:
             title = f1.read()
